@@ -13,7 +13,13 @@ It is a simple application to maintain your tasks.
 2. Go to **ToDo List.xcodeproj** fie and double click to open it on Xcode.
 3. Run the project
 
+**Environment**
+Xcode Version: 15.0
+Mac OS Version: Sonoma 14.0
+
+
 **Demo**
 https://drive.google.com/file/d/12RxjvtPGWYQ774W3X2RLZ8AAe0Y2HS_d/view?usp=sharing
+
 
 
