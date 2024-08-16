@@ -11,9 +11,7 @@ import CoreData
 class AddTaskViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var titleField: UITextField!
-    
     @IBOutlet weak var detailField: UITextView!
-    
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var task: Task?
@@ -27,8 +25,9 @@ class AddTaskViewController: UIViewController, UITextViewDelegate {
         detailField.layer.borderColor = borderColor.cgColor
         detailField.layer.cornerRadius = 1
         
+        // Open keyboard on load and set autocapitalization
         titleField.autocapitalizationType = .words
-        titleField.becomeFirstResponder() // Open keyboard on load
+        titleField.becomeFirstResponder() 
         
         if task != nil {
             navigationItem.title = "Edit Task" // Update navigation title
@@ -61,7 +60,6 @@ class AddTaskViewController: UIViewController, UITextViewDelegate {
     
     // Save the task whenever the detail field changes
     func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange")
         saveData()
     }
     

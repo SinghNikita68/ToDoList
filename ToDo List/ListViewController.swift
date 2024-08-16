@@ -19,7 +19,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var tasks: [Task] = []
     
     override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear")
         // Fetch tasks from Core Data
         if let context =  (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
             let request: NSFetchRequest<Task> = Task.fetchRequest()
@@ -79,8 +78,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         UNUserNotificationCenter.current().delegate = self
     }
     
-    
-    
     // To move the view up when keyboard is shown
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
@@ -114,7 +111,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.titleLabel?.text = task.title
             cell.detailLabel?.text = task.details
             
-            // Add Icon
+            // Add Status Icon
             let iconImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
             iconImageView.contentMode = .scaleAspectFit
             if task.status {
@@ -253,6 +250,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         completionHandler([.alert, .sound, .badge])
     }
     
+    // Show empty message if there are no tasks
     func showEmptyMessage(){
         if tasks.isEmpty {
             let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: listTableView.bounds.size.width, height: listTableView.bounds.size.height))
@@ -280,7 +278,6 @@ extension ListViewController: UISearchBarDelegate {
                 request.predicate = predicate
             }
             
-            
             if searchBar.text == nil || searchBar.text == ""
             {
                 searchBar.perform(#selector(self.resignFirstResponder), with: nil, afterDelay: 0.1)
@@ -296,12 +293,10 @@ extension ListViewController: UISearchBarDelegate {
             } catch {
                 print("Error fetching tasks: \(error)")
             }
-            
-            
         }
-        
     }
     
+    // Show no results message
     func showNoResultsMessage() {
         let noResultsLabel = UILabel(frame: CGRect(x: 0, y: searchBar.frame.maxY, width: listTableView.bounds.size.width, height: 30))
         noResultsLabel.text = "No results found"
@@ -311,6 +306,7 @@ extension ListViewController: UISearchBarDelegate {
         listTableView.addSubview(noResultsLabel)
     }
     
+    // Hide no results message
     func hideNoResultsMessage() {
         if let noResultsLabel = listTableView.viewWithTag(999) {
             noResultsLabel.removeFromSuperview()
